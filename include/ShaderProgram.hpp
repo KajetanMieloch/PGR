@@ -12,22 +12,22 @@ public:
   ShaderProgram &operator=(const ShaderProgram &) = delete;
   ShaderProgram(ShaderProgram &&rhs) noexcept;
   ShaderProgram &operator=(ShaderProgram &&rhs) noexcept;
+  // ~ShaderProgram();
 
   void use();
 
-  GLuint getProgramId() const { return programId; }
   void setInt(const std::string_view name, int value);
   void setMat4(const std::string_view name, const glm::mat4 &value);
-  void setUniform(const std::string &name, const glm::mat4 &matrix);
 
+  GLuint getProgramId() const { return programId; };
   std::pair<GLuint, GLuint> createVertexBufferObject();
   void cleanUp(std::pair<GLuint, GLuint> vv);
+  void setUniform(const std::string &name, const glm::mat4 &matrix);
 
 private:
   GLuint createShader(const GLchar *shaderSource, GLenum shaderType);
   GLuint createProgram(GLuint vertexShader, GLuint fragmentShader,
                        GLuint geometryShader = 0);
-
   GLuint programId{};
   GLuint vertexShader;
   GLuint fragmentShader;
