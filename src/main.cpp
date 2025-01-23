@@ -61,6 +61,22 @@ int main() {
         window.close();
       } else if (event.type == sf::Event::Resized) {
         glViewport(0, 0, event.size.width, event.size.height);
+      } else if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.button == sf::Mouse::Left) {
+          std::cout << "Left mouse button pressed." << std::endl;
+          glm::vec3 rayOrigin = camera.Position();
+          glm::vec3 rayDirection = glm::normalize(camera.Front());
+          std::cout << "Ray origin: (" << rayOrigin.x << ", " << rayOrigin.y << ", " << rayOrigin.z << ")" << std::endl;
+          std::cout << "Ray direction: (" << rayDirection.x << ", " << rayDirection.y << ", " << rayDirection.z << ")" << std::endl;
+          Ray ray(rayOrigin, rayDirection);
+          Chunk<chunkSize, chunkSize, chunkSize>::HitRecord hitRecord;
+          if (chunk.Hit(ray, 0.0f, 100.0f, hitRecord) == Ray::HitType::Hit) {
+            std::cout << "Removing block at (" << hitRecord.m_cubeIndex.x << ", " << hitRecord.m_cubeIndex.y << ", " << hitRecord.m_cubeIndex.z << ")" << std::endl;
+            chunk.RemoveBlock(hitRecord.m_cubeIndex.x, hitRecord.m_cubeIndex.y, hitRecord.m_cubeIndex.z);
+          } else {
+            std::cout << "No block hit." << std::endl;
+          }
+        }
       }
     }
 

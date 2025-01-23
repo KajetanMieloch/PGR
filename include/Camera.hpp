@@ -8,6 +8,8 @@ public:
   Camera(const glm::vec3 &position, const glm::vec3 &front, float yaw,
          float pitch);
 
+  glm::vec3 Position() const { return m_position; }
+  glm::vec3 Front() const { return m_front; }
   glm::mat4 View() const { return m_lookAt; }
   glm::mat4 Projection() const { return m_projection; }
 

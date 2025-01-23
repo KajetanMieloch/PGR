@@ -3,7 +3,6 @@
 #include <iostream>
 #include <optional>
 
-// Recursive texture search function with debug output
 std::optional<std::string> FindTexture(const std::string &textureName) {
     std::cout << "Starting recursive search for: " << textureName << std::endl;
     try {
